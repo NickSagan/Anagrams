@@ -77,21 +77,40 @@ class ViewController: UITableViewController {
     func submit(_ answer: String) {
         let lowerAnswer = answer.lowercased()
         
+        let errorTitle: String
+        let errorMessage: String
+        
         if isPossible(word: lowerAnswer) {
             if isOriginal(word: lowerAnswer) {
                 if isReal(word: lowerAnswer) {
                     usedWords.insert(answer, at: 0)
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.insertRows(at: [indexPath], with: .automatic)
+                    
+                    return
+                    
+                } else {
+                    errorTitle = "Word not recognized"
+                    errorMessage = "You need to try another word"
                 }
+            } else {
+                errorTitle = "Word not possible"
+                errorMessage = "You already used this word"
             }
+        } else {
+            errorTitle = "Word not possible"
+            errorMessage = "You can't spell that word from \(title!.lowercased())"
         }
+        
+        let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
     
     func isPossible(word: String) -> Bool {
         guard var tempWord = title?.lowercased() else {return false}
         
-        if word == "" || word == " " || word == "  " {
+        if word == "" || word == " " {
             return false
         }
         
@@ -114,7 +133,7 @@ class ViewController: UITableViewController {
         let checker = UITextChecker()
         // set range from 0 to word length. Loop over each letter
         let range = NSRange(location: 0, length: word.utf16.count)
-        //
+        // checks misspelled words
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
         
         // NSNotFound is a special Int, which means literally nothing found
