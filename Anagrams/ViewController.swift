@@ -11,11 +11,11 @@ class ViewController: UITableViewController {
     
     var allWords = [String]()
     var usedWords = [String]()
-    
-    let fl = FileManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(startGame))
         
         // Add bar button
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForanswer))
@@ -38,7 +38,7 @@ class ViewController: UITableViewController {
     }
     
     // reload tableview and clear the array of used words
-    func startGame() {
+    @objc func startGame() {
         title = allWords.randomElement()
         usedWords.removeAll(keepingCapacity: true)
         tableView.reloadData()
