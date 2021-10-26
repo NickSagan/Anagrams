@@ -90,21 +90,23 @@ class ViewController: UITableViewController {
                     return
                     
                 } else {
-                    errorTitle = "Word not recognized"
-                    errorMessage = "You need to try another word"
+                    showErrorMessage(title: "Word not recognized", message: "You need to try another word")
                 }
             } else {
-                errorTitle = "Word not possible"
-                errorMessage = "You already used this word"
+                showErrorMessage(title: "Word not possible", message: "You already used this word")
             }
         } else {
-            errorTitle = "Word not possible"
-            errorMessage = "You can't spell that word from \(title!.lowercased())"
+            showErrorMessage(title: "Word not possible", message: "You can't spell that word from \(title!.lowercased())")
         }
+    }
+    
+    func showErrorMessage(title errorTitle: String, message errorMessage: String) {
+        
         
         let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
+        
     }
     
     func isPossible(word: String) -> Bool {
