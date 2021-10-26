@@ -111,6 +111,17 @@ class ViewController: UITableViewController {
         guard var tempWord = title?.lowercased() else {return false}
         
         if word == "" || word == " " {
+            print("spaces")
+            return false
+        }
+        
+        if word == title {
+            print("== title")
+            return false
+        }
+        
+        if word.count < 3 {
+            print("< 3")
             return false
         }
         
