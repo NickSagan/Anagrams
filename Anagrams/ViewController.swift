@@ -15,9 +15,10 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // add left bar button
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(startGame))
         
-        // Add bar button
+        // Add right bar button
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForanswer))
         
         // choose file destination
@@ -59,9 +60,12 @@ class ViewController: UITableViewController {
     }
     
     @objc func promptForanswer() {
+        // create alert
         let ac = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
+        // add text field
         ac.addTextField()
         
+        // create submit alert button
         let submitAction = UIAlertAction(title: "Submit", style: .default) {
             // parameters we send into
             [weak self, weak ac] _ in
@@ -70,20 +74,21 @@ class ViewController: UITableViewController {
             self?.submit(answer)
         }
         
+        // add created button
         ac.addAction(submitAction)
+        // present alert
         present(ac, animated: true)
     }
     
     func submit(_ answer: String) {
         let lowerAnswer = answer.lowercased()
-        
-        let errorTitle: String
-        let errorMessage: String
-        
+
         if isPossible(word: lowerAnswer) {
             if isOriginal(word: lowerAnswer) {
                 if isReal(word: lowerAnswer) {
-                    usedWords.insert(answer, at: 0)
+                    
+                    // after all checks passed add new answer
+                    usedWords.insert(lowerAnswer, at: 0)
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.insertRows(at: [indexPath], with: .automatic)
                     
