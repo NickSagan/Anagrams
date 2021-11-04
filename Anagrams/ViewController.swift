@@ -66,7 +66,7 @@ class ViewController: UITableViewController {
         ac.addTextField()
         
         // create submit alert button
-        let submitAction = UIAlertAction(title: "Submit", style: .default) {
+        let submitAction = UIAlertAction(title: "Confirm", style: .default) {
             // parameters we send into
             [weak self, weak ac] _ in
             // closure body
