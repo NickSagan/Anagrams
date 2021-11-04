@@ -95,7 +95,7 @@ class ViewController: UITableViewController {
                     return
                     
                 } else {
-                    showErrorMessage(title: "Word not recognized", message: "You need to try another word")
+                    showErrorMessage(title: "Recognized!", message: "You need to try another word")
                 }
             } else {
                 showErrorMessage(title: "Word not possible", message: "You already used this word")
