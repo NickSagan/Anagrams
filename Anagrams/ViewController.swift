@@ -158,4 +158,5 @@ class ViewController: UITableViewController {
         return misspelledRange.location == NSNotFound
     }
 }
-
+ 
+// To DO change design
